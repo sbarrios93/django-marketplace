@@ -23,4 +23,5 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("edit-profile/", edit_profile, name="edit_profile"),
     path("", include("pages.urls")),
+    path("photos/", include("photos.urls")),
 ]

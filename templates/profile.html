@@ -4,35 +4,65 @@
     Users
 {% endblock title %}
 {% block content %}
-    <h2 class="font-semibold text-2xl text-sky-500">{{ object.username }}</h2>
-    <div class="grid pt-4 grid-cols-1 gap-3 md:grid-cols-3 md:gap-4">
-        <span class=" text-yellow-400 text-sm font-medium mr-2 px-2.5 py-1 rounded border border-yellow-200">
-            {% if object.private_profile %}
-                Private
-            {% else %}
-                Public
+    {% if allowed_viewing %}
+        <div class="flex items-center">
+            <span class="font-semibold self-center text-2xl text-sky-500 pr-4">{{ object.username }}</span>
+            {% if user != object %}
+                {% if follow_status == "following" %}
+                    <a class="relative inline-flex items-center justify-center  place-self-end  p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-200"
+                       href="{% url "follow_toggle" object.username %}">
+                        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-slate-900 text-sky-50 rounded-md group-hover:bg-opacity-0">
+                        Unfollow</span>
+                    </a>
+                {% elif follow_status == "pending" %}
+                    <a class="relative inline-flex items-center justify-center  place-self-end  p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-200"
+                       href="{% url "follow_toggle" object.username %}">
+                        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-slate-900 text-sky-50 rounded-md group-hover:bg-opacity-0">
+                        Cancel Request</span>
+                    </a>
+                {% else %}
+                    <a class="relative inline-flex items-center justify-center  place-self-end  p-0.5 mb-2 mr-2 overflow-hidden text-sm font-medium text-gray-900 rounded-lg group bg-gradient-to-br from-green-400 to-blue-600 group-hover:from-green-400 group-hover:to-blue-600 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-200"
+                       href="{% url "follow_toggle" object.username %}">
+                        <span class="relative px-5 py-2.5 transition-all ease-in duration-75 bg-slate-900 text-sky-50 rounded-md group-hover:bg-opacity-0">
+                        Follow</span>
+                    </a>
+                {% endif %}
             {% endif %}
-        </span>
-        <span class=" text-yellow-400 text-sm font-medium mr-2 px-2.5 py-1 rounded border border-yellow-200">
-            {{ object.follower_count }} Followers
-        </span>
-        <span class=" text-yellow-400 text-sm font-medium mr-2 px-2.5 py-1 rounded border border-yellow-200">
-            {{ object.following_count }} Following
-        </span>
-    </div>
-    <section class="overflow-hidden text-gray-700 ">
-        <div class="container px-5 py-2 mx-auto">
-            <div class="grid pt-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
-                {% for photo in object.photos %}
-                    <div class="flex flex-wrap ">
-                        <div class="w-full p-1 md:p-2">
-                            <img alt="gallery"
-                                 class="block object-cover object-center w-full h-full rounded-lg"
-                                 src="{{ photo.image.url }}">
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
         </div>
-    </section>
+        <div class="grid pt-4 grid-cols-1 gap-3 md:grid-cols-3 md:gap-4">
+            <span class=" text-indigo-200 text-sm font-medium mr-2 px-2.5 py-1 rounded border border-indigo-400">
+                {% if object.private_profile %}
+                    Private
+                {% else %}
+                    Public
+                {% endif %}
+            </span>
+            <span class=" text-indigo-200 text-sm font-medium mr-2 px-2.5 py-1 rounded border border-indigo-400">
+                {{ object.follower_count }} Followers
+            </span>
+            <span class=" text-indigo-200 text-sm font-medium mr-2 px-2.5 py-1 rounded border border-indigo-400">
+                {{ object.following_count }} Following
+            </span>
+        </div>
+        <section class="overflow-hidden text-gray-700 ">
+            <div class="container px-5 py-2 mx-auto">
+                <div class="grid pt-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
+                    {% for photo in object.photos %}
+                        <div class="flex flex-wrap ">
+                            <div class="w-full p-1 md:p-2">
+                                <a href="{% url 'photo' photo.id %}">
+                                    <img alt="gallery"
+                                         class="block object-cover object-center w-full h-full rounded-lg"
+                                         src="{{ photo.image.url }}">
+                                </a>
+                            </div>
+                            <p class="text-center text-sky-400">{{ photo.caption }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </section>
+    {% else %}
+        <h2 class="font-semibold text-2xl text-sky-500">You are not allowed to view this profile</h2>
+    {% endif %}
 {% endblock content %}

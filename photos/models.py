@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -15,6 +16,9 @@ class Like(models.Model):
 
 
 class Comment(models.Model):
-    author = models.ForeignKey("accounts.CustomUser", on_delete=models.CASCADE)
+    author = models.ForeignKey(
+        "accounts.CustomUser", on_delete=models.CASCADE, related_name="comments"
+    )
     photo = models.ForeignKey("Photo", on_delete=models.CASCADE)
     body = models.CharField(max_length=200)
+    created_at = models.DateTimeField(auto_now_add=True)

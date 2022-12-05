@@ -41,6 +41,24 @@
                 </button>
                 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul class="flex flex-col p-4 mt-4  border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+                        {% if user.is_authenticated %}
+                            <li>
+                                <a href="{% url 'new_photo' %}"
+                                   class="block py-2 pl-3 text-white rounder md:bg-transparent md:p-0">
+                                    <svg clip-rule="evenodd"
+                                         fill-rule="evenodd"
+                                         stroke-linejoin="round"
+                                         class="-ml-1 w-6 h-6 col-span-1 text-sky-50"
+                                         stroke-linejoin="round"
+                                         fill="currentColor"
+                                         stroke-miterlimit="2"
+                                         viewBox="0 0 24 24"
+                                         xmlns="http://www.w3.org/2000/svg">
+                                        <path d="m12.002 2c5.518 0 9.998 4.48 9.998 9.998 0 5.517-4.48 9.997-9.998 9.997-5.517 0-9.997-4.48-9.997-9.997 0-5.518 4.48-9.998 9.997-9.998zm0 1.5c-4.69 0-8.497 3.808-8.497 8.498s3.807 8.497 8.497 8.497 8.498-3.807 8.498-8.497-3.808-8.498-8.498-8.498zm-.747 7.75h-3.5c-.414 0-.75.336-.75.75s.336.75.75.75h3.5v3.5c0 .414.336.75.75.75s.75-.336.75-.75v-3.5h3.5c.414 0 .75-.336.75-.75s-.336-.75-.75-.75h-3.5v-3.5c0-.414-.336-.75-.75-.75s-.75.336-.75.75z" fill-rule="nonzero"/>
+                                    </svg>
+                                </a>
+                            </li>
+                        {% endif %}
                         <li>
                             <a href="{% url 'users' %}"
                                class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent  md:p-0 "
@@ -51,32 +69,32 @@
                                 <a href="{% url 'edit_profile' %}"
                                    class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent  md:p-0 "
                                    aria-current="page">Profile</a>
-                                <li>
-                                    <a href="{% url 'account_logout' %}"
-                                       class="block py-2 pl-3 pr-4 text-white  rounded md:bg-transparent  md:p-0 "
-                                       aria-current="page">Logout</a>
-                                </li>
-                            {% else %}
-                                <li>
-                                    <a href="{% url 'account_login' %}"
-                                       class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:p-0 "
-                                       aria-current="page">Log In</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'account_signup' %}"
-                                       class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent  md:p-0"
-                                       aria-current="page">Sign up</a>
-                                </li>
-                            {% endif %}
-                        </ul>
-                    </div>
+                            </li>
+                            <li>
+                                <a href="{% url 'account_logout' %}"
+                                   class="block py-2 pl-3 pr-4 text-white  rounded md:bg-transparent  md:p-0 "
+                                   aria-current="page">Logout</a>
+                            </li>
+                        {% else %}
+                            <li>
+                                <a href="{% url 'account_login' %}"
+                                   class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:p-0 "
+                                   aria-current="page">Log In</a>
+                            </li>
+                            <li>
+                                <a href="{% url 'account_signup' %}"
+                                   class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent  md:p-0"
+                                   aria-current="page">Sign up</a>
+                            </li>
+                        {% endif %}
+                    </ul>
                 </div>
-            </nav>
-            <div class="container pt-10 px-8">
-                {% block content %}
-                {% endblock content %}
             </div>
-            <script type="application/javascript"
-                    src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
-        </body>
-    </html>
+        </nav>
+        <div class="container pt-10 px-8">
+            {% block content %}
+            {% endblock content %}
+        </div>
+        <script type="application/javascript" src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+    </body>
+</html>

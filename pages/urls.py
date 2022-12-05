@@ -12,6 +12,7 @@ users_urlpatterns = [
 urlpatterns = [
     path("", pages.views.HomePageView.as_view(), name="home"),
     path("users/", include(users_urlpatterns)),
+    path("follow/<str:username>", pages.views.follow_toggle, name="follow_toggle"),
 ]
 
 if settings.DEBUG:
