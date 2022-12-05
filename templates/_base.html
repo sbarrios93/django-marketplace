@@ -1,0 +1,86 @@
+{% load static %}
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Photogram</title>
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;798&family=Manrope:wght@300;400;500;600;800&display=swap"
+              rel="stylesheet">
+        {% tailwind_css %}
+        <title>
+            {% block title %}
+                Photogram
+            {% endblock title %}
+        </title>
+    </head>
+    <body class="w-9/12 mx-auto">
+        <nav class="p-3 rounded bg-gray-800 border-gray-700 mx-auto mt-7">
+            <div class="container flex flex-wrap items-center justify-between mx-auto">
+                <a href="{% url "home" %}" class="flex items-center">
+                    <span class="self-center text-4xl font-black text-slate-200 whitespace-nowrap ">Photogram</span>
+                </a>
+                <button data-collapse-toggle="navbar-default"
+                        type="button"
+                        class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
+                        aria-controls="navbar-default"
+                        aria-expanded="false">
+                    <span class="sr-only">Open main menu</span>
+                    <svg class="w-6 h-6"
+                         aria-hidden="true"
+                         fill="currentColor"
+                         viewBox="0 0 20 20"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd">
+                        </path>
+                    </svg>
+                </button>
+                <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+                    <ul class="flex flex-col p-4 mt-4  border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium">
+                        <li>
+                            <a href="{% url 'users' %}"
+                               class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent  md:p-0 "
+                               aria-current="page">Users</a>
+                        </li>
+                        {% if user.is_authenticated %}
+                            <li>
+                                <a href="{% url 'edit_profile' %}"
+                                   class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent  md:p-0 "
+                                   aria-current="page">Profile</a>
+                                <li>
+                                    <a href="{% url 'account_logout' %}"
+                                       class="block py-2 pl-3 pr-4 text-white  rounded md:bg-transparent  md:p-0 "
+                                       aria-current="page">Logout</a>
+                                </li>
+                            {% else %}
+                                <li>
+                                    <a href="{% url 'account_login' %}"
+                                       class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent md:p-0 "
+                                       aria-current="page">Log In</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'account_signup' %}"
+                                       class="block py-2 pl-3 pr-4 text-white rounded md:bg-transparent  md:p-0"
+                                       aria-current="page">Sign up</a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+            <div class="container pt-10 px-8">
+                {% block content %}
+                {% endblock content %}
+            </div>
+            <!-- Bootstrap JS -->
+            <script src="https://unpkg.com/flowbite@1.5.4/dist/flowbite.js"></script>
+            <!-- JS -->
+            <script src="{% static 'js/base.js' %}"></script>
+        </body>
+    </html>
+</html>

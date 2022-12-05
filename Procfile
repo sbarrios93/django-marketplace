@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn config.wsgi
+web: python manage.py migrate  && python manage.py setup_fake_data && gunicorn config.wsgi

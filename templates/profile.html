@@ -1,0 +1,38 @@
+{% extends "_base.html" %}
+{% load static %}
+{% block title %}
+    Users
+{% endblock title %}
+{% block content %}
+    <h2 class="font-semibold text-2xl text-sky-500">{{ object.username }}</h2>
+    <div class="grid pt-4 grid-cols-1 gap-3 md:grid-cols-3 md:gap-4">
+        <span class=" text-yellow-400 text-sm font-medium mr-2 px-2.5 py-1 rounded border border-yellow-200">
+            {% if object.private_profile %}
+                Private
+            {% else %}
+                Public
+            {% endif %}
+        </span>
+        <span class=" text-yellow-400 text-sm font-medium mr-2 px-2.5 py-1 rounded border border-yellow-200">
+            {{ object.follower_count }} Followers
+        </span>
+        <span class=" text-yellow-400 text-sm font-medium mr-2 px-2.5 py-1 rounded border border-yellow-200">
+            {{ object.following_count }} Following
+        </span>
+    </div>
+    <section class="overflow-hidden text-gray-700 ">
+        <div class="container px-5 py-2 mx-auto">
+            <div class="grid pt-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-3 ">
+                {% for photo in object.photos %}
+                    <div class="flex flex-wrap ">
+                        <div class="w-full p-1 md:p-2">
+                            <img alt="gallery"
+                                 class="block object-cover object-center w-full h-full rounded-lg"
+                                 src="{{ photo.image.url }}">
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock content %}

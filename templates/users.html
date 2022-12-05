@@ -1,0 +1,53 @@
+{% extends "_base.html" %}
+{% load static %}
+{% block title %}
+    Users
+{% endblock title %}
+{% block content %}
+    <div class="flex items-center">
+        <h1 class="inline-block text-2xl sm:text-3xl  font-black text-slate-100 tracking-tigh">All Users</h1>
+    </div>
+    <div class="flex flex-col container mt-10 mx-auto max-w-3xl  items-center justify-center bg-transparent rounded-lg">
+        <ul class="flex flex-col divide-y w-full">
+            {% for profile in users %}
+                <li class="flex flex-row border-none">
+                    <div class="border  rounded-lg shadow-md bg-gray-800 border-gray-700 flex flex-1 p-4 mt-5">
+                        <div class="flex flex-col w-10 h-10 justify-center items-center mr-4 ">
+                            <a href="#" class="block relative">
+                                <img alt="profil"
+                                     src="https://robohash.org/{{ profile.username }}"
+                                     class="mx-auto object-cover rounded-full h-10 w-10"/>
+                            </a>
+                        </div>
+                        <div class="flex-1 pl-1">
+                            <div class="font-medium text-slate-300">{{ profile.username }}</div>
+                            <div class="text-slate-400 text-sm">{{ profile.comment_count }} comments</div>
+                            <div class="text-slate-400 text-sm">{{ profile.like_count }} likes</div>
+                        </div>
+                        <div class="flex flex-row justify-center">
+                            <div class="text-slate-600 text-xs">
+                                {% if profile.private_profile %}
+                                    Private
+                                {% else %}
+                                    Public
+                                {% endif %}
+                            </div>
+                            <a class="w-10 text-right flex justify-end"
+                               href="{% url 'profile' profile.username %}">
+                                <svg width="20"
+                                     fill="currentColor"
+                                     height="20"
+                                     class="hover:text-gray-800 text-gray-500"
+                                     viewBox="0 0 1792 1792"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1363 877l-742 742q-19 19-45 19t-45-19l-166-166q-19-19-19-45t19-45l531-531-531-531q-19-19-19-45t19-45l166-166q19-19 45-19t45 19l742 742q19 19 19 45t-19 45z">
+                                    </path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock content %}
