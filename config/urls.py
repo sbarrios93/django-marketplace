@@ -23,5 +23,4 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("edit-profile/", edit_profile, name="edit_profile"),
     path("", include("pages.urls")),
-    path("__reload__/", include("django_browser_reload.urls")),
 ]
