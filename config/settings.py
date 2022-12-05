@@ -64,7 +64,6 @@ INSTALLED_APPS = [
     "pages.apps.PagesConfig",
     "photos.apps.PhotosConfig",
     "theme",  # Tailwind
-    "django_browser_reload",
 ]
 
 MIDDLEWARE = [
@@ -76,7 +75,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "config.urls"
