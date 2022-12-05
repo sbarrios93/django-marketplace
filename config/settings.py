@@ -193,3 +193,9 @@ MEDIA_URL = "/media/"
 
 # Tailwind
 TAILWIND_APP_NAME = "theme"
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://appdev.up.railway.app",
+    "http://localhost",
+    "http://127.0.0.1",
+]
