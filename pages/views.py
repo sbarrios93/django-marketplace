@@ -1,6 +1,7 @@
 from typing import Any
 
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView, TemplateView
 
 
@@ -19,7 +20,7 @@ class UsersPageView(TemplateView):
     template_name = "users.html"
 
 
-class ProfilePageView(DetailView):
+class ProfilePageView(LoginRequiredMixin, DetailView):
     model = get_user_model()
 
     slug_field: str = "username"
